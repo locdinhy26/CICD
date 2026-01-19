@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # dinhxuanloc_2280610666
+=======
+# 2280610666_dinhxuanloc
+>>>>>>> 37bc75efe5b157db57912a9c7a31f61886208223
 
 
 
@@ -15,14 +19,22 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 
 ```
 cd existing_repo
+<<<<<<< HEAD
 git remote add origin https://gitlab.com/locdinhys26/dinhxuanloc_2280610666.git
+=======
+git remote add origin https://gitlab.com/22th_n1_29-30_ccmtptpm/2280610666_dinhxuanloc.git
+>>>>>>> 37bc75efe5b157db57912a9c7a31f61886208223
 git branch -M main
 git push -uf origin main
 ```
 
 ## Integrate with your tools
 
+<<<<<<< HEAD
 * [Set up project integrations](https://gitlab.com/locdinhys26/dinhxuanloc_2280610666/-/settings/integrations)
+=======
+* [Set up project integrations](https://gitlab.com/22th_n1_29-30_ccmtptpm/2280610666_dinhxuanloc/-/settings/integrations)
+>>>>>>> 37bc75efe5b157db57912a9c7a31f61886208223
 
 ## Collaborate with your team
 
