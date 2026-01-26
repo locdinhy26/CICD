@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Change the content of a cell</title>
+    <style type="text/css">
+        body {
+            margin: 30px;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <table id="myTable" border="1"></table>
+    <form>
+        <input type="button" onclick="createTable(3, 5)" value="Create the table">
+    </form>
+
+    <script>
+        function createTable(rows, cols) {
+            // Lấy phần tử table
+            var table = document.getElementById("myTable");
+            
+            // Xóa nội dung cũ nếu có
+            table.innerHTML = "";
+
+            // Tạo bảng với số dòng và số cột
+            for (var i = 0; i < rows; i++) {
+                var row = table.insertRow();
+                for (var j = 0; j < cols; j++) {
+                    var cell = row.insertCell();
+                    cell.innerHTML = "Row " + (i+1) + " Col " + (j+1);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

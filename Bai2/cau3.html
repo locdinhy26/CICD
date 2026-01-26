@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Random Background Color</title>
+    <script>
+        function changeBackgroundColor() {
+            // Tạo màu ngẫu nhiên dạng hex (#RRGGBB)
+            const randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+            document.body.style.backgroundColor = randomColor;
+        }
+    </script>
+</head>
+<body>
+    <button onclick="changeBackgroundColor()">Đổi màu nền ngẫu nhiên</button>
+</body>
+</html>

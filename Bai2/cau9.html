@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hiển thị hình ảnh lần lượt</title>
+    <script>
+        const images = [
+            { src: "http://farm4.staticflickr.com/3691/11268502654_f28f05966c_m.jpg", width: 240, height: 160 },
+            { src: "http://farm1.staticflickr.com/33/45336904_1aef569b30_n.jpg", width: 320, height: 195 },
+            { src: "http://farm6.staticflickr.com/5211/5384592886_80a512e2c9.jpg", width: 500, height: 343 }
+        ];
+
+        let currentIndex = 0;
+
+        function showNextImage() {
+            const img = document.getElementById("imageDisplay");
+            const currentImage = images[currentIndex];
+
+            img.src = currentImage.src;
+            img.width = currentImage.width;
+            img.height = currentImage.height;
+
+            currentIndex = (currentIndex + 1) % images.length;
+        }
+    </script>
+</head>
+<body>
+    <h3>Nhấn nút để hiển thị hình ảnh lần lượt</h3>
+    <button onclick="showNextImage()">Hiển thị ảnh</button><br><br>
+    <img id="imageDisplay" src="" alt="Ảnh sẽ hiển thị ở đây">
+</body>
+</html>

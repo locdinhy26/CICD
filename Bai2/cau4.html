@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=utf-8 />
+    <title>Lấy giá trị thuộc tính từ link</title>
+    <script>
+        function getAttributes() {
+            const link = document.getElementById("somelink");
+
+            const hrefValue = link.getAttribute("href");
+            const hreflangValue = link.getAttribute("hreflang");
+            const relValue = link.getAttribute("rel");
+            const targetValue = link.getAttribute("target");
+
+            alert(
+                "Href: " + hrefValue + "\n" +
+                "Hreflang: " + hreflangValue + "\n" +
+                "Rel: " + relValue + "\n" +
+                "Target: " + targetValue
+            );
+        }
+    </script>
+</head>
+<body>
+    <p>
+        <a id="somelink" type="text/html" hreflang="en-us" rel="nofollow" target="_self" href="http://www.google.com/">
+        Google Website</a>
+    </p>
+    <button onclick="getAttributes()">Click here to get attributes value</button>
+</body>
+</html>

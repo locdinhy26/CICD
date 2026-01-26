@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Hiển thị kích thước cửa sổ</title>
+    <style>
+        #sizeDisplay {
+            font-size: 22px;
+            font-weight: bold;
+            color: #007BFF;
+            border: 2px solid #007BFF;
+            padding: 15px;
+            width: fit-content;
+            background-color: #f0f8ff;
+            border-radius: 8px;
+        }
+    </style>
+    <script>
+        function updateWindowSize() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            document.getElementById("sizeDisplay").innerHTML =
+                "Chiều rộng cửa sổ: " + width + " px<br>" +
+                "Chiều cao cửa sổ: " + height + " px";
+        }
+
+        window.onload = updateWindowSize;
+        window.onresize = updateWindowSize;
+    </script>
+</head>
+<body>
+    <h2>Kích thước cửa sổ trình duyệt</h2>
+    <div id="sizeDisplay"></div>
+</body>
+</html>
