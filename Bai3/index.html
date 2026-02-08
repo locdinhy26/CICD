@@ -1,24 +1,104 @@
-<!-- Form thêm sinh viên -->
-<form id="studentForm">
-  <input type="text" id="studentId" placeholder="Mã SV">
-  <input type="text" id="studentName" placeholder="Tên SV">
-  <input type="text" id="studentClass" placeholder="Lớp">
-  <input type="number" id="studentScore" placeholder="Điểm">
-  <button type="submit">Thêm</button>
-</form>
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Management Dashboard</title>
+    <!-- Thêm Font Inter và Remix Icon -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <i class="ri-dashboard-3-line"></i>
+        <h1>Student Dashboard</h1>
+      </div>
+      <button id="themeToggle" type="button" class="btn icon-btn" title="Đổi giao diện">
+        <i class="ri-sun-line" id="themeIcon"></i>
+        <span>Theme</span>
+      </button>
+    </header>
 
-<!-- Thanh tìm kiếm -->
-<input type="text" id="searchInput" placeholder="Tìm kiếm sinh viên...">
+    <main class="container">
+      <!-- Form Section -->
+      <section class="card">
+        <div class="card-header">
+          <h2><i class="ri-user-add-line"></i> Thêm sinh viên</h2>
+        </div>
+        <form id="studentForm" class="grid" autocomplete="off">
+          <div class="form-group">
+            <label for="studentId">Mã SV</label>
+            <input id="studentId" required placeholder="VD: SV001" />
+          </div>
+          <div class="form-group">
+            <label for="studentName">Họ tên</label>
+            <input id="studentName" required placeholder="VD: Nguyen Van A" />
+          </div>
+          <div class="form-group">
+            <label for="studentClass">Lớp</label>
+            <input id="studentClass" required placeholder="VD: D21CQCN01" />
+          </div>
+          <div class="form-group">
+            <label for="studentScore">Điểm (0-10)</label>
+            <input id="studentScore" type="number" min="0" max="10" step="0.1" required placeholder="0.0" />
+          </div>
+          
+          <div class="row full-width actions">
+            <button class="btn primary" type="submit">
+              <i class="ri-add-circle-line"></i> Thêm mới
+            </button>
+            <button class="btn secondary" type="reset">
+              <i class="ri-refresh-line"></i> Nhập lại
+            </button>
+          </div>
+          <p id="formError" class="error" aria-live="polite"></p>
+        </form>
+      </section>
 
-<!-- Bảng danh sách -->
-<table>
-  <thead>
-    <tr>
-      <th>Mã SV</th>
-      <th>Tên SV</th>
-      <th>Lớp</th>
-      <th>Điểm</th>
-    </tr>
-  </thead>
-  <tbody id="studentTbody"></tbody>
-</table>
+      <!-- Table Section -->
+      <section class="card">
+        <div class="card-header">
+          <h2><i class="ri-team-line"></i> Danh sách sinh viên</h2>
+          <div class="search-wrapper">
+            <i class="ri-search-line search-icon"></i>
+            <input id="searchInput" placeholder="Tìm theo mã, tên, lớp..." />
+            <button id="clearSearch" class="btn icon-only" type="button" title="Xóa tìm kiếm">
+              <i class="ri-close-circle-fill"></i>
+            </button>
+          </div>
+        </div>
+        
+        <div class="tableWrap">
+          <table class="table" id="studentTable">
+            <thead>
+              <tr>
+                <th>Mã SV</th>
+                <th>Họ tên</th>
+                <th>Lớp</th>
+                <th>Điểm</th>
+              </tr>
+            </thead>
+            <tbody id="studentTbody">
+                <!-- Dữ liệu sẽ được JS thêm vào đây -->
+            </tbody>
+          </table>
+          <!-- Empty State (Optional: Bạn có thể ẩn hiện cái này bằng JS nếu bảng rỗng) -->
+          <div id="emptyState" class="empty-state" style="display: none;">
+            <i class="ri-inbox-line"></i>
+            <p>Chưa có dữ liệu sinh viên</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Team LLT "Long - Lộc - Thọ"</p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
