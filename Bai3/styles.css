@@ -1,0 +1,146 @@
+/* ==========================================================================
+   CSS Variables (Root) & Reset
+   ========================================================================== */
+:root {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --border: #334155;
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-glow: rgba(59, 130, 246, 0.5);
+  --danger: #ef4444;
+  --surface-hover: #334155;
+  --radius: 12px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --font-main: 'Inter', system-ui, sans-serif;
+  --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #0f172a;
+  --text-secondary: #64748b;
+  --border: #e2e8f0;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --surface-hover: #f1f5f9;
+  --primary-glow: rgba(37, 99, 235, 0.3);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.5;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ==========================================================================
+   Layout & Components
+   ========================================================================== */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.5rem;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand { display: flex; align-items: center; gap: 10px; color: var(--primary); font-size: 1.1rem; }
+.brand h1 { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+
+.container { max-width: 1024px; margin: 2rem auto; padding: 0 1.5rem 3rem; display: flex; flex-direction: column; gap: 1.5rem; }
+
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+  box-shadow: var(--shadow); transition: var(--transition);
+}
+
+.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem; }
+.card h2 { font-size: 1.1rem; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+/* Styles cho phần Tiêu đề và Đếm số lượng */
+.title-group { display: flex; align-items: center; gap: 12px; }
+.badge {
+  background: var(--surface-hover); color: var(--text);
+  padding: 4px 12px; border-radius: 20px;
+  font-size: 0.85rem; font-weight: 600; border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Form & Inputs
+   ========================================================================== */
+.grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-group label { font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); }
+
+input {
+  width: 100%; padding: 0.75rem 1rem;
+  border: 1px solid var(--border); border-radius: var(--radius);
+  background: var(--bg); color: var(--text);
+  font-family: inherit; font-size: 0.95rem; transition: var(--transition);
+}
+input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+
+/* ==========================================================================
+   Buttons
+   ========================================================================== */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; justify-content: center;
+  padding: 0.6rem 1.2rem; border-radius: var(--radius);
+  font-weight: 600; font-size: 0.9rem; cursor: pointer;
+  border: 1px solid transparent; transition: var(--transition);
+}
+.btn.primary { background: var(--primary); color: white; box-shadow: 0 4px 6px -1px var(--primary-glow); }
+.btn.primary:hover { background: var(--primary-hover); transform: translateY(-1px); }
+.btn.secondary { background: transparent; border-color: var(--border); color: var(--text-secondary); }
+.btn.secondary:hover { background: var(--surface-hover); color: var(--text); }
+.icon-btn { background: transparent; color: var(--text); padding: 0.5rem 0.75rem; }
+.icon-btn:hover { background: var(--surface-hover); }
+
+.actions { margin-top: 0.5rem; }
+.full-width { grid-column: span 2; display: flex; gap: 1rem; }
+
+/* ==========================================================================
+   Search & Table
+   ========================================================================== */
+.search-wrapper { position: relative; flex: 1; max-width: 320px; }
+.search-wrapper input { padding-left: 2.5rem; padding-right: 2.5rem; }
+.search-icon { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); pointer-events: none; }
+.search-wrapper .icon-only {
+  position: absolute; right: 0.5rem; top: 50%; transform: translateY(-50%);
+  padding: 4px; color: var(--text-secondary); border: none; background: transparent; cursor: pointer; display: flex; align-items: center;
+}
+.search-wrapper .icon-only:hover { color: var(--danger); }
+
+.tableWrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+.table { width: 100%; border-collapse: collapse; text-align: left; }
+.table th {
+  background: var(--surface-hover); padding: 1rem; font-weight: 600;
+  font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; border-bottom: 1px solid var(--border);
+}
+.table td { padding: 1rem; border-bottom: 1px solid var(--border); color: var(--text); }
+.table tbody tr:hover { background: color-mix(in srgb, var(--primary) 5%, transparent); }
+
+.empty-state { padding: 3rem; text-align: center; color: var(--text-secondary); }
+.empty-state i { font-size: 2.5rem; margin-bottom: 0.5rem; display: block; opacity: 0.5; }
+
+.footer { text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 0.875rem; border-top: 1px solid var(--border); margin-top: auto; }
+.error { margin-top: 10px; color: var(--danger); font-size: 0.9rem; grid-column: span 2; text-align: center; font-weight: 500; }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+  .full-width { grid-column: span 1; flex-direction: column; }
+  .card-header { flex-direction: column; align-items: stretch; }
+  .title-group { justify-content: space-between; width: 100%; margin-bottom: 10px;}
+  .search-wrapper { max-width: 100%; }
+}

@@ -1,0 +1,117 @@
+<<<<<<< HEAD
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Management Dashboard</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="brand">
+        <i class="ri-dashboard-3-line"></i>
+        <h1>Student Dashboard</h1>
+      </div>
+      <button id="themeToggle" type="button" class="btn icon-btn" title="Đổi giao diện">
+        <i class="ri-sun-line" id="themeIcon"></i>
+        <span>Theme</span>
+      </button>
+    </header>
+
+    <main class="container">
+      <!-- Section 1: Form Thêm sinh viên -->
+      <section class="card">
+        <div class="card-header">
+          <h2><i class="ri-user-add-line"></i> Thêm sinh viên</h2>
+        </div>
+        
+        <form id="studentForm" class="grid" autocomplete="off">
+          <div class="form-group">
+            <label for="studentId">Mã SV</label>
+            <input id="studentId" type="text" placeholder="VD: SV001" />
+          </div>
+          <div class="form-group">
+            <label for="studentName">Họ tên</label>
+            <input id="studentName" type="text" placeholder="VD: Nguyen Van A" />
+          </div>
+          <div class="form-group">
+            <label for="studentClass">Lớp</label>
+            <input id="studentClass" type="text" placeholder="VD: D21CQCN01" />
+          </div>
+          <div class="form-group">
+            <label for="studentScore">Điểm (0-10)</label>
+            <input id="studentScore" type="number" min="0" max="10" step="0.1" placeholder="0.0" />
+          </div>
+          
+          <div class="row full-width actions">
+            <button class="btn primary" type="submit">
+              <i class="ri-add-circle-line"></i> Thêm mới
+            </button>
+            <button class="btn secondary" type="reset">
+              <i class="ri-refresh-line"></i> Nhập lại
+            </button>
+          </div>
+          <p id="formError" class="error" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- Section 2: Danh sách & Tìm kiếm (Đã gộp Conflict) -->
+      <section class="card">
+        <div class="card-header list-header">
+          <!-- Nhóm Tiêu đề & Đếm số lượng -->
+          <div class="title-group">
+             <h2><i class="ri-list-check"></i> Danh sách sinh viên</h2>
+             <span id="studentCount" class="badge">Tổng: 0</span>
+          </div>
+          
+          <!-- Nhóm Tìm kiếm -->
+          <div class="search-wrapper">
+            <i class="ri-search-line search-icon"></i>
+            <input id="searchInput" placeholder="Tìm theo tên, mã hoặc lớp..." />
+            <button id="clearSearch" class="btn icon-only" type="button" title="Xóa tìm kiếm">
+              <i class="ri-close-circle-fill"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="tableWrap">
+          <table class="table" id="studentTable">
+            <thead>
+              <tr>
+                <th>Mã SV</th>
+                <th>Họ Tên</th>
+                <th>Lớp</th>
+                <th>Điểm</th>
+              </tr>
+            </thead>
+            <tbody id="studentTbody">
+              <!-- Dữ liệu render tại đây -->
+            </tbody>
+          </table>
+          
+          <!-- Empty State -->
+          <div id="emptyState" class="empty-state" style="display: none;">
+            <i class="ri-inbox-line"></i>
+            <p>Chưa có dữ liệu phù hợp</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>Team LLT "Long - Lộc - Thọ" &copy; 2024</p>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
+=======
+>>>>>>> a6467b8d912400b482296c080a6f975c51e30c6d
