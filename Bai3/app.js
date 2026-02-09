@@ -202,12 +202,6 @@ function setupSearch() {
   }
 }
 
-<<<<<<< HEAD
-
-// --- CHẠY ỨNG DỤNG ---
-setupForm();
-renderStudents();
-=======
 // ==========================================================================
 // 5. CHẠY ỨNG DỤNG
 // ==========================================================================
@@ -217,4 +211,3 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSearch();
   renderStudents();
 });
->>>>>>> aa9ee64aaac67d85383999b7c7bad9770833f272
