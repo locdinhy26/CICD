@@ -102,8 +102,6 @@ function setupForm() {
     alert("Thêm sinh viên thành công!");
   });
 }
-<<<<<<< HEAD
-=======
 // Searh Sinh viên
 (function fixSearchStudent() {
   const searchInput = document.getElementById("searchInput");
@@ -159,7 +157,6 @@ function setupForm() {
   }
 })();
 
->>>>>>> feature/Search
 
 // --- CHẠY ỨNG DỤNG ---
 setupForm();
