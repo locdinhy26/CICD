@@ -1,65 +1,131 @@
-// --- CẤU HÌNH & KHỞI TẠO ---
+// ==========================================================================
+// 1. CẤU HÌNH & KHỞI TẠO
+// ==========================================================================
 const STORAGE_KEY = "students_data";
 const ID_TBODY = "studentTbody";
 const ID_FORM = "studentForm";
 const ID_ERROR = "formError";
 
-// Lấy danh sách từ LocalStorage, nếu không có thì trả về mảng rỗng
+// Lấy danh sách từ LocalStorage
 let students = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-// --- CÁC HÀM XỬ LÝ (LOGIC) ---
+// ==========================================================================
+// 2. LOGIC GIAO DIỆN (THEME & UI)
+// ==========================================================================
+function initTheme() {
+  const themeBtn = document.getElementById("themeToggle");
+  const themeIcon = document.getElementById("themeIcon");
+  const body = document.documentElement;
 
-// 1. Hàm lưu vào LocalStorage
+  function setTheme(theme) {
+    localStorage.setItem("theme", theme);
+    if (theme === "light") {
+      body.setAttribute("data-theme", "light");
+      themeIcon.className = "ri-moon-line";
+    } else {
+      body.removeAttribute("data-theme");
+      themeIcon.className = "ri-sun-line";
+    }
+  }
+
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      const current = localStorage.getItem("theme") === "light" ? "light" : "dark";
+      setTheme(current === "light" ? "dark" : "light");
+    });
+  }
+
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  setTheme(savedTheme);
+}
+
+// ==========================================================================
+// 3. LOGIC NGHIỆP VỤ (CORE)
+// ==========================================================================
+
+// Lưu Storage
 function saveToStorage() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(students));
 }
 
-// 2. Hàm render (Hiển thị)
-function renderStudents() {
+// Cập nhật số lượng
+function updateStudentCount(data) {
+  const countEl = document.getElementById("studentCount");
+  if (countEl) {
+    const list = data || students;
+    countEl.textContent = `Tổng: ${list.length}`;
+  }
+}
+
+// Render dữ liệu
+function renderStudents(dataToRender = students) {
   const tbody = document.getElementById(ID_TBODY);
-  const emptyState = document.getElementById("emptyState"); // (Optional) Nếu bạn muốn ẩn hiện cái thùng rỗng
+  const emptyState = document.getElementById("emptyState");
   
+  if (!tbody) return;
   tbody.innerHTML = "";
 
-  // Xử lý hiển thị empty state (nếu có trong HTML)
-  if (students.length === 0 && emptyState) {
-    emptyState.style.display = "block";
-  } else if (emptyState) {
-    emptyState.style.display = "none";
+  // Logic hiển thị Empty State
+  if (dataToRender.length === 0) {
+    if (emptyState) emptyState.style.display = "block";
+    updateStudentCount(dataToRender);
+    return;
   }
+  
+  if (emptyState) emptyState.style.display = "none";
 
-  students.forEach((student) => {
+  // Logic render từng dòng
+  dataToRender.forEach((st) => {
     const tr = document.createElement("tr");
+    
+    const scoreVal = parseFloat(st.score);
+    const scoreColor = scoreVal >= 5 ? "var(--text)" : "#ef4444"; 
+    const scoreFormatted = isNaN(scoreVal) ? st.score : scoreVal.toFixed(1);
+
     tr.innerHTML = `
-      <td>${student.id}</td>
-      <td>${student.name}</td>
-      <td>${student.className}</td>
-      <td>${student.score}</td>
+      <td style="font-weight: 600; color: var(--primary)">${st.id}</td>
+      <td>${st.name}</td>
+      <td>
+        <span style="background: var(--surface-hover); padding: 4px 8px; border-radius: 6px; font-size: 0.9em;">
+          ${st.className}
+        </span>
+      </td>
+      <td style="font-weight: bold; color: ${scoreColor}">${scoreFormatted}</td>
     `;
     tbody.appendChild(tr);
   });
+
+  updateStudentCount(dataToRender);
 }
 
-// 3. Hàm Validate dữ liệu
+// Validate
 function validateInput(id, name, className, score) {
-  if (!id || !name || !className || !score) {
-    return "Vui lòng nhập đầy đủ thông tin!";
+  if (!id || !name || !className || isNaN(score)) {
+    return "Vui lòng nhập đầy đủ thông tin hợp lệ!";
   }
-  
   if (score < 0 || score > 10) {
     return "Điểm phải nằm trong khoảng từ 0 đến 10!";
   }
-
-  // Kiểm tra trùng Mã SV
+  
   const isDuplicate = students.some(s => s.id === id);
   if (isDuplicate) {
-    return "Mã sinh viên này đã tồn tại!";
+    return `Mã sinh viên "${id}" đã tồn tại!`;
   }
-
-  return ""; // Không có lỗi
+  return "";
 }
 
-// 4. Xử lý sự kiện Submit Form
+// Helper: Xóa dấu tiếng Việt (Dùng cho search)
+function removeAccents(str) {
+  return str.normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/đ/g, "d").replace(/Đ/g, "d")
+    .toLowerCase().trim();
+}
+
+// ==========================================================================
+// 4. XỬ LÝ SỰ KIỆN
+// ==========================================================================
+
 function setupForm() {
   const form = document.getElementById(ID_FORM);
   const errorEl = document.getElementById(ID_ERROR);
@@ -67,23 +133,20 @@ function setupForm() {
   if (!form) return;
 
   form.addEventListener("submit", function (e) {
-    e.preventDefault(); // Chặn load lại trang
+    e.preventDefault();
+    errorEl.textContent = "";
 
-    // Lấy giá trị từ các ô input
     const idInput = document.getElementById("studentId").value.trim().toUpperCase();
     const nameInput = document.getElementById("studentName").value.trim();
     const classInput = document.getElementById("studentClass").value.trim();
     const scoreInput = parseFloat(document.getElementById("studentScore").value);
 
-    // Validate
-    const errorMessage = validateInput(idInput, nameInput, classInput, scoreInput);
-    
-    if (errorMessage) {
-      errorEl.textContent = errorMessage;
-      return; // Dừng lại nếu có lỗi
+    const errorMsg = validateInput(idInput, nameInput, classInput, scoreInput);
+    if (errorMsg) {
+      errorEl.textContent = errorMsg;
+      return;
     }
 
-    // Nếu không lỗi -> Tạo object sinh viên mới
     const newStudent = {
       id: idInput,
       name: nameInput,
@@ -91,53 +154,32 @@ function setupForm() {
       score: scoreInput
     };
 
-    // Thêm vào mảng -> Lưu -> Render lại
     students.push(newStudent);
     saveToStorage();
+    
+    // Clear search & Reset UI
+    const searchInput = document.getElementById("searchInput");
+    if(searchInput) searchInput.value = "";
+    
     renderStudents();
-
-    // Reset form và xóa thông báo lỗi
     form.reset();
-    errorEl.textContent = "";
+    document.getElementById("studentId").focus();
     alert("Thêm sinh viên thành công!");
   });
 }
-<<<<<<< HEAD
-=======
-// Searh Sinh viên
-(function fixSearchStudent() {
+
+function setupSearch() {
   const searchInput = document.getElementById("searchInput");
-  const tbody = document.getElementById(ID_TBODY);
-  if (!searchInput || !tbody) return;
+  const clearBtn = document.getElementById("clearSearch");
 
-  function removeAccents(str) {
-    return str.normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .replace(/đ/g, "d")
-      .replace(/Đ/g, "d")
-      .toLowerCase()
-      .trim();
-  }
+  if (!searchInput) return;
 
-  function renderSearchResult(data) {
-    tbody.innerHTML = "";
-    data.forEach(s => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${s.id}</td>
-        <td>${s.name}</td>
-        <td>${s.className}</td>
-        <td>${s.score}</td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
-
+  // Sự kiện input (Logic từ nhánh feature/Search được tối ưu)
   searchInput.addEventListener("input", function () {
     const keyword = removeAccents(this.value);
 
     if (!keyword) {
-      renderStudents(); // quay về render gốc
+      renderStudents(students);
       return;
     }
 
@@ -147,20 +189,25 @@ function setupForm() {
       removeAccents(s.className).includes(keyword)
     );
 
-    renderSearchResult(filtered);
+    renderStudents(filtered);
   });
 
-  const clearBtn = document.getElementById("clearSearch");
+  // Nút xóa tìm kiếm
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {
       searchInput.value = "";
-      renderStudents();
+      searchInput.focus();
+      renderStudents(students);
     });
   }
-})();
+}
 
->>>>>>> feature/Search
-
-// --- CHẠY ỨNG DỤNG ---
-setupForm();
-renderStudents();
+// ==========================================================================
+// 5. CHẠY ỨNG DỤNG
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+  initTheme();
+  setupForm();
+  setupSearch();
+  renderStudents();
+});
