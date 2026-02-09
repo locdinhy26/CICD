@@ -1,35 +1,32 @@
-const studentForm = document.getElementById("studentForm");
-const studentTbody = document.getElementById("studentTbody");
-const searchInput = document.getElementById("searchInput");
+// --- CẤU HÌNH ---
+const ID_TBODY = "studentTbody";
 
-// Thêm sinh viên vào bảng
-studentForm.addEventListener("submit", function(e) {
-  e.preventDefault();
+// --- DỮ LIỆU GIẢ (Dùng cho Task 02) ---
+let students = [
+  { id: "SV001", name: "Nguyen Van A", className: "CNTT1", score: 8.5 },
+  { id: "SV002", name: "Tran Thi B", className: "CNTT2", score: 7.0 },
+  { id: "SV003", name: "Le Van C", className: "DTVT1", score: 9.2 },
+];
 
-  const id = document.getElementById("studentId").value;
-  const name = document.getElementById("studentName").value;
-  const cls = document.getElementById("studentClass").value;
-  const score = document.getElementById("studentScore").value;
+// --- HÀM RENDER ---
+function renderStudents() {
+  const tbody = document.getElementById(ID_TBODY);
+  
+  // Xóa nội dung cũ
+  tbody.innerHTML = "";
 
-  const row = document.createElement("tr");
-  row.innerHTML = `
-    <td>${id}</td>
-    <td>${name}</td>
-    <td>${cls}</td>
-    <td>${score}</td>
-  `;
-  studentTbody.appendChild(row);
+  // Duyệt mảng và tạo HTML
+  students.forEach((student) => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${student.id}</td>
+      <td>${student.name}</td>
+      <td>${student.className}</td>
+      <td>${student.score}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
-  studentForm.reset();
-});
-
-// Tìm kiếm sinh viên
-searchInput.addEventListener("keyup", function() {
-  const keyword = searchInput.value.toLowerCase();
-  const rows = studentTbody.getElementsByTagName("tr");
-
-  for (let row of rows) {
-    const text = row.textContent.toLowerCase();
-    row.style.display = text.includes(keyword) ? "" : "none";
-  }
-});
+// Chạy hàm render ngay khi tải trang
+renderStudents();
