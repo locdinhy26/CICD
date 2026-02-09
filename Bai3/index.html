@@ -61,6 +61,7 @@
       </section>
 
       <!-- Table Section -->
+<<<<<<< HEAD
       <section class="card">
         <div class="card-header">
           <h2><i class="ri-team-line"></i> Danh sách sinh viên</h2>
@@ -94,6 +95,35 @@
           </div>
         </div>
       </section>
+=======
+  <section class="card">
+            <div class="card-header list-header">
+                <h2><i class="ri-list-check"></i> Danh sách sinh viên</h2>
+                <span id="studentCount" class="badge">Tổng: 0</span>
+            </div>
+
+            <!-- Khung tìm kiếm hoàn chỉnh -->
+            <div class="search-wrapper">
+                <i class="ri-search-line search-icon"></i>
+                <input type="text" id="searchInput" placeholder="Tìm theo tên, mã hoặc lớp (không cần dấu)..." />
+                <button id="clearSearch" class="clear-btn">&times;</button>
+            </div>
+
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Mã SV</th>
+                            <th>Họ Tên</th>
+                            <th>Lớp</th>
+                            <th>Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTbody"></tbody>
+                </table>
+            </div>
+        </section>
+>>>>>>> feature/Search
     </main>
 
     <footer class="footer">

@@ -102,6 +102,64 @@ function setupForm() {
     alert("Thêm sinh viên thành công!");
   });
 }
+<<<<<<< HEAD
+=======
+// Searh Sinh viên
+(function fixSearchStudent() {
+  const searchInput = document.getElementById("searchInput");
+  const tbody = document.getElementById(ID_TBODY);
+  if (!searchInput || !tbody) return;
+
+  function removeAccents(str) {
+    return str.normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/đ/g, "d")
+      .replace(/Đ/g, "d")
+      .toLowerCase()
+      .trim();
+  }
+
+  function renderSearchResult(data) {
+    tbody.innerHTML = "";
+    data.forEach(s => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${s.id}</td>
+        <td>${s.name}</td>
+        <td>${s.className}</td>
+        <td>${s.score}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  searchInput.addEventListener("input", function () {
+    const keyword = removeAccents(this.value);
+
+    if (!keyword) {
+      renderStudents(); // quay về render gốc
+      return;
+    }
+
+    const filtered = students.filter(s =>
+      removeAccents(s.id).includes(keyword) ||
+      removeAccents(s.name).includes(keyword) ||
+      removeAccents(s.className).includes(keyword)
+    );
+
+    renderSearchResult(filtered);
+  });
+
+  const clearBtn = document.getElementById("clearSearch");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      renderStudents();
+    });
+  }
+})();
+
+>>>>>>> feature/Search
 
 // --- CHẠY ỨNG DỤNG ---
 setupForm();
