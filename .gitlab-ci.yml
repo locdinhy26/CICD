@@ -23,7 +23,11 @@ pages:
     - echo "Pipeline executed at: $(date)"
     - echo "Commit: $CI_COMMIT_SHA"
     - echo "Branch: $CI_COMMIT_BRANCH"
+    - echo "📂 Copying files to public directory..."
+    - mkdir -p public
+    - cp -r bAI7/public/* public/
     - echo "✅ Deployment package ready"
+    - ls -la public/
   artifacts:
     paths:
       - public
