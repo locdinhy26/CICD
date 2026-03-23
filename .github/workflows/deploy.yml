@@ -1,0 +1,39 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Tự động chạy khi bạn push vào branch main
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Prepare Public Folder
+        run: |
+          echo "📂 Setting up public directory..."
+          mkdir -p public
+          # Lệnh này copy toàn bộ nội dung từ bAI7/public vào thư mục public gốc
+          cp -r bAI7/public/. public/ 
+          ls -la public/
+          echo "✅ Preparation complete!"
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './public' # Chỉ định folder sẽ được đưa lên web
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
