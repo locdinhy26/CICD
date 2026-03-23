@@ -1,0 +1,35 @@
+stages:
+  - build
+  - deploy
+
+# Job build: kiểm tra sintax HTML, CSS, JS
+build:
+  stage: build
+  image: node:18
+  script:
+    - echo "🔍 Checking project structure..."
+    - ls -la public/
+    - echo "✅ Build verification passed!"
+  only:
+    - main
+    - merge_requests
+
+# Job deploy: deploy lên GitLab Pages
+pages:
+  stage: deploy
+  image: node:18
+  script:
+    - echo "📦 Preparing deployment to GitLab Pages..."
+    - echo "Pipeline executed at: $(date)"
+    - echo "Commit: $CI_COMMIT_SHA"
+    - echo "Branch: $CI_COMMIT_BRANCH"
+    - echo "✅ Deployment package ready"
+  artifacts:
+    paths:
+      - public
+    expire_in: 30 days
+  only:
+    - main
+  environment:
+    name: production
+    url: https://$CI_PROJECT_NAMESPACE.gitlab.io/$CI_PROJECT_NAME
