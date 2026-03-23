@@ -8,7 +8,7 @@ build:
   image: node:18
   script:
     - echo "🔍 Checking project structure..."
-    - ls -la public/
+    - ls -la bAI7/public/
     - echo "✅ Build verification passed!"
   only:
     - main
